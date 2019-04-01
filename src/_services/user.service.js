@@ -47,6 +47,40 @@ const UserService = {
   },
 
   /**
+     * Login the user and store the access token to TokenService.
+     *
+     * @returns access_token
+     * @throws AuthenticationError
+    **/
+  signup: async function (email, password) {
+    const requestData = {
+      method: 'post',
+      url: '/o/auth/signup',
+      data: {
+        user: {
+          email,
+          password
+        }
+      }
+    }
+
+    try {
+      const response = await ApiService.customRequest(requestData)
+
+      TokenService.saveToken(response.data.user.token)
+      ApiService.setHeader()
+
+      ApiService.mount401Interceptor()
+
+      // Return Token
+      return response.data.user.token
+    } catch (error) {
+      const { message } = error.response.data.info.errors
+      throw new AuthenticationError(error.response.status, message)
+    }
+  },
+
+  /**
      * Logout the current user by removing the token from storage.
      *
      * Will also remove `Authorization Bearer <token>` header from future requests.

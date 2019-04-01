@@ -49,6 +49,26 @@ const actions = {
     }
   },
 
+  async signup ({ commit }, { email, password }) {
+    commit('loginRequest')
+
+    try {
+      const token = await UserService.signup(email, password)
+      commit('loginSuccess', token)
+
+      // Redirect the user to the page he first tried to visit or to the home view
+      router.push('/')
+
+      return true
+    } catch (e) {
+      if (e instanceof AuthenticationError) {
+        commit('loginError', { errorCode: e.errorCode, errorMessage: e.message })
+      }
+
+      return false
+    }
+  },
+
   logout ({ commit }) {
     UserService.logout()
     commit('logoutSuccess')
