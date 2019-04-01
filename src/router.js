@@ -10,18 +10,24 @@ Vue.use(Router)
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
+  linkExactActiveClass: 'active',
   routes: [
     {
       path: '/',
       name: 'home',
       component: Home,
       meta: {
-        public: false
+        public: false,
+        onlyWhenLoggedOut: false
       }
     },
     {
       path: '/login',
-      component: Authentication
+      component: Authentication,
+      meta: {
+        public: true,
+        onlyWhenLoggedOut: true
+      }
     },
     {
       path: '/about',
@@ -34,24 +40,24 @@ const router = new Router({
   ]
 })
 
-// router.beforeEach((to, from, next) => {
-//   const isPublic = to.matched.some(record => record.meta.public)
-//   const onlyWhenLoggedOut = to.matched.some(record => record.meta.onlyWhenLoggedOut)
-//   const loggedIn = !!TokenService.getToken()
+router.beforeEach((to, from, next) => {
+  const isPublic = to.matched.some(record => record.meta.public) || false
+  const onlyWhenLoggedOut = to.matched.some(record => record.meta.onlyWhenLoggedOut) || false
+  const loggedIn = !!TokenService.getToken()
 
-//   if (!isPublic && !loggedIn) {
-//     return next({
-//       path: '/login',
-//       query: { redirect: to.fullPath } // Store the full path to redirect the user to after login
-//     })
-//   }
+  if (!isPublic && !loggedIn) {
+    return next({
+      path: '/login',
+      query: { redirect: to.fullPath } // Store the full path to redirect the user to after login
+    })
+  }
 
-//   // Do not allow user to visit login page or register page if they are logged in
-//   if (loggedIn && onlyWhenLoggedOut) {
-//     return next('/')
-//   }
+  // Do not allow user to visit login page or register page if they are logged in
+  if (loggedIn && onlyWhenLoggedOut) {
+    return next('/')
+  }
 
-//   next()
-// })
+  next()
+})
 
 export default router

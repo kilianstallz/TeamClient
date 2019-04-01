@@ -21,7 +21,7 @@ const UserService = {
   login: async function (email, password) {
     const requestData = {
       method: 'post',
-      url: '/api/users/login',
+      url: '/o/auth/login',
       data: {
         user: {
           email,
@@ -34,7 +34,6 @@ const UserService = {
       const response = await ApiService.customRequest(requestData)
 
       TokenService.saveToken(response.data.user.token)
-      // TokenService.saveRefreshToken(response.data.refresh_token)
       ApiService.setHeader()
 
       ApiService.mount401Interceptor()
@@ -42,37 +41,10 @@ const UserService = {
       // Return Token
       return response.data.user.token
     } catch (error) {
-      throw new AuthenticationError(error.response.status, error.response.data.errors)
+      const { message } = error.response.data.info.errors
+      throw new AuthenticationError(error.response.status, message)
     }
   },
-
-  /**
-     * Refresh the access token.
-    **/
-  // refreshToken: async function () {
-  //   const refreshToken = TokenService.getRefreshToken()
-
-  //   const requestData = {
-  //     method: 'post',
-  //     url: '/api/users/current/',
-  //     data: {
-  //       refresh_token: refreshToken
-  //     }
-  //   }
-
-  //   try {
-  //     const response = await ApiService.customRequest(requestData)
-
-  //     TokenService.saveToken(response.data.access_token)
-  //     TokenService.saveRefreshToken(response.data.refresh_token)
-  //     // Update the header in ApiService
-  //     ApiService.setHeader()
-
-  //     return response.data.access_token
-  //   } catch (error) {
-  //     throw new AuthenticationError(error.response.status, error.response.data.detail)
-  //   }
-  // },
 
   /**
      * Logout the current user by removing the token from storage.
