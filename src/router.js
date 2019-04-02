@@ -30,6 +30,22 @@ const router = new Router({
       }
     },
     {
+      path: '/forgot',
+      component: () => import(/* webpackChunkName: "Forgot" */ './views/ForgotPassword.vue'),
+      meta: {
+        public: true,
+        onlyWhenLoggedOut: false
+      }
+    },
+    {
+      path: '/reset/:token',
+      component: () => import(/* webpackChunkName: "Forgot" */ './views/ResetPassword.vue'),
+      meta: {
+        public: true,
+        onlyWhenLoggedOut: false
+      }
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting

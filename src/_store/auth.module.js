@@ -69,6 +69,24 @@ const actions = {
     }
   },
 
+  forgotPassword ({ commit }, email) {
+    try {
+      const response = UserService.forgotPassword(email)
+      return response
+    } catch (e) {
+      return false
+    }
+  },
+
+  resetPassword ({ commit }, { token, password }) {
+    try {
+      const res = UserService.resetPassword(token, password)
+      return res
+    } catch (e) {
+      throw new Error(e)
+    }
+  },
+
   logout ({ commit }) {
     UserService.logout()
     commit('logoutSuccess')

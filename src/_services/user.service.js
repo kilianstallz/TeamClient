@@ -80,6 +80,40 @@ const UserService = {
     }
   },
 
+  forgotPassword: async function (email) {
+    const requestData = {
+      method: 'post',
+      url: '/o/auth/forgot',
+      data: {
+        email
+      }
+    }
+    try {
+      const response = await ApiService.customRequest(requestData)
+      return response
+    } catch (error) {
+      const message = error.response.data.info.errors.message
+      throw new Error(message)
+    }
+  },
+
+  resetPassword: async function (token, password) {
+    const requestData = {
+      method: 'post',
+      url: `/o/auth/reset/${token}`,
+      data: {
+        password: password
+      }
+    }
+    try {
+      const response = await ApiService.customRequest(requestData)
+      return response.data
+    } catch (error) {
+      const message = error.response
+      throw new Error(message)
+    }
+  },
+
   /**
      * Logout the current user by removing the token from storage.
      *
