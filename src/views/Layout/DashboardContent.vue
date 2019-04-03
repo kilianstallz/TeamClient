@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="content">
     <fade-transition
       :duration="100"
       mode="out-in"
@@ -18,3 +18,12 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.content {
+  margin-top: 60px;
+  margin-left: auto;
+  width: 85%;
+  float: right;
+}
+</style>

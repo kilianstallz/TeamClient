@@ -53,10 +53,5 @@ export default {
     width: 15vw;
     background: white;
   }
-  .wrapper {
-    width: 85vw;
-    display: flex;
-    flex-direction: column;
-  }
 }
 </style>

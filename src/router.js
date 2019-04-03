@@ -5,6 +5,9 @@ import { TokenService } from './_services/storage.service'
 
 import Authentication from './views/Authentication.vue'
 
+// Pages
+import Home from './pages/Home.vue'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -14,12 +17,19 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
+      redirect: '/home',
       component: Dashboard,
       meta: {
         public: false,
         onlyWhenLoggedOut: false
-      }
+      },
+      children: [
+        {
+          path: '/home',
+          name: 'Dashboard',
+          component: Home
+        }
+      ]
     },
     {
       path: '/login',
@@ -44,14 +54,6 @@ const router = new Router({
         public: true,
         onlyWhenLoggedOut: false
       }
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     }
   ]
 })
