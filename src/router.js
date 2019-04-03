@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Dashboard from './views/Dashboard.vue'
 import { TokenService } from './_services/storage.service'
 
 import Authentication from './views/Authentication.vue'
@@ -15,7 +15,7 @@ const router = new Router({
     {
       path: '/',
       name: 'home',
-      component: Home,
+      component: Dashboard,
       meta: {
         public: false,
         onlyWhenLoggedOut: false
