@@ -1,5 +1,6 @@
+import Sidebar from './Sidebar.vue'
 const SidebarStore = {
-  showSidebar: false,
+  showSidebar: true,
   displaySidebar (value) {
     this.showSidebar = value
   }
@@ -14,6 +15,7 @@ const SidebarPlugin = {
     })
 
     Vue.prototype.$sidebar = app.SidebarStore
+    Vue.component('side-bar', Sidebar)
   }
 }
 

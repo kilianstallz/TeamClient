@@ -6,7 +6,9 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-
+    window: {
+      width: 0
+    }
   },
   mutations: {
 

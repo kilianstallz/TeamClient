@@ -11,5 +11,9 @@
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
 }
 </style>

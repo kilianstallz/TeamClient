@@ -1,43 +1,53 @@
 <template>
   <div class="home">
 
-    <b-nav
-      vertical
-      class="sidenav pt-5"
-      style="position: fixed; margin-top: 40px;"
-    >
-      <profile-section />
-      <div class="container mt-3">
-        <b-nav-item to="/">Dashboard</b-nav-item>
-        <b-nav-item>Team</b-nav-item>
-        <b-nav-item>Profil</b-nav-item>
-      </div>
-    </b-nav>
-
     <navbar />
 
-    <dashboard-content />
+    <div class="wrapper">
+      <side-bar />
+      <div
+        id="right"
+        class="column"
+      >
+        <dashboard-content class="bottom" />
+      </div>
+    </div>
 
   </div>
 </template>
 
 <script>
-import ProfileSection from './Layout/ProfileSection.vue'
 import Navbar from './Layout/Navbar.vue'
 import DashboardContent from './Layout/DashboardContent.vue'
 export default {
   name: 'home',
-  methods: {
-    toggleSidebar () {
-      if (this.$sidebar.showSidebar) {
-        this.$sidebar.displaySidebar(false)
-      } else {
-        this.$sidebar.displaySidebar(true)
+  data () {
+    return {
+      window: {
+        width: 0
       }
     }
   },
+  methods: {
+    getWindowWidth (event) {
+      this.window.width = window.innerWidth
+      if (this.window.width < 768) {
+        this.$sidebar.showSidebar = false
+      } else {
+        this.$sidebar.showSidebar = true
+      }
+    }
+  },
+  created () {
+    this.$nextTick(function () {
+      window.addEventListener('resize', this.getWindowWidth)
+      this.getWindowWidth()
+    })
+  },
+  destroyed () {
+    window.removeEventListener('resize', this.getWindowWidth)
+  },
   components: {
-    ProfileSection,
     Navbar,
     DashboardContent
   }
@@ -45,13 +55,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.hidden {
+  display: none;
+}
 .home {
+  height: 100%;
   display: flex;
+  overflow: hidden;
+  box-sizing: border-box;
+  margin: 0;
   flex-direction: column;
-  .sidenav {
-    height: 100vh;
-    width: 15vw;
-    background: white;
+  .wrapper {
+    height: 100%;
+    overflow: hidden; /*makes the body non-scrollable (we will add scrolling to the sidebar and main content containers)*/
+    margin: 0px; /*removes default style*/
+    display: flex; /*enables flex content for its hildren*/
+    box-sizing: border-box;
+    .column {
+      height: 100%; /*allows both columns to span the full height of the browser window*/
+      display: flex;
+      flex-direction: column; /*places the left and right headers above the bottom content*/
+    }
+    #right {
+      background: #d1d1d1;
+      width: 100%;
+    }
+    .bottom {
+      flex-grow: 1; /*ensures that the container will take up the full height of the parent container*/
+      overflow-y: auto; /*adds scroll to this container*/
+    }
   }
 }
 </style>

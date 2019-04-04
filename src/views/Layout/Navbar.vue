@@ -6,7 +6,13 @@
     style="position: fixed; width: 100vw;"
   >
     <div class="container-fluid">
-      <b-navbar-brand style="z-index: 10000;">Dashboard</b-navbar-brand>
+
+      <b-button
+        class="mr-5"
+        @click="$sidebar.showSidebar = !$sidebar.showSidebar"
+      ></b-button>
+
+      <b-navbar-brand>Dashboard</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
