@@ -1,5 +1,9 @@
 <template>
-  <div class="home">
+  <div v-if="loading"></div>
+  <div
+    v-else
+    class="home"
+  >
 
     <navbar />
 
@@ -17,25 +21,19 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
 import Navbar from './Layout/Navbar.vue'
 import DashboardContent from './Layout/DashboardContent.vue'
 export default {
   name: 'DashboardLayout',
   data () {
     return {
+      loading: false,
       window: {
         width: 0
       }
     }
   },
   methods: {
-    ...mapActions('team', [
-      'fetchTeam'
-    ]),
-    ...mapActions('user', [
-      'fetchProfile'
-    ]),
     closeSidebar () {
       if (this.$sidebar.showSidebar) {
         if (this.window.width < 768) {
@@ -50,25 +48,28 @@ export default {
       } else {
         this.$sidebar.showSidebar = true
       }
+    },
+    async fetchBaseData () {
+      this.loading = true
+      await this.$store.dispatch('user/fetchProfile')
+      await this.$store.dispatch('team/fetchTeam')
+      if (this.$store.state.user.errorMessage) {
+        this.$store.dispatch('auth/logout')
+      }
+      if (this.$store.state.user.user.team) {
+        this.$router.push({
+          path: '/login', query: { method: 'login', redirect: '/home' }
+        })
+      }
+      this.loading = false
     }
-  },
-  computed: {
-    ...mapState('team', {
-      team: state => state.team
-    }),
-    ...mapState('user', {
-      user: state => state.user
-    })
   },
   created () {
-    if (!this.team.name) {
-      this.fetchTeam()
-      this.fetchProfile()
-    }
     this.$nextTick(function () {
       window.addEventListener('resize', this.getWindowWidth)
       this.getWindowWidth()
     })
+    this.fetchBaseData()
   },
   destroyed () {
     window.removeEventListener('resize', this.getWindowWidth)

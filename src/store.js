@@ -16,7 +16,10 @@ const store = new Vuex.Store({
 
   },
   actions: {
-
+    async fetchBaseData ({ dispatch, state }) {
+      await dispatch('user/fetchProfile')
+      await dispatch('team/fetchTeam')
+    }
   },
   modules: {
     auth,

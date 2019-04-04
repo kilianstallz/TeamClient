@@ -3,24 +3,14 @@ import ProfileService from '../_services/profile.service'
 import router from '../router'
 
 const state = {
-  user: {
-    _id: '',
-    email: '',
-    firstName: '',
-    lastName: '',
-    sportType: null,
-    team: null
-  },
+  user: null,
   // Progress
   fetchingProfile: false,
   errorMessage: ''
 }
 const getters = {
-  email: state => { return state.user.email },
-  fullName: state => { return `${state.user.firstName} ${state.user.lastName}` },
-  sportType: state => { return state.user.sportType },
-  team: state => state.user.team,
-  isFetching: state => state.fetchingProfile
+  isFetching: state => state.fetchingProfile,
+  user: state => state.user
 }
 const mutations = {
   fetchRequest (state) {
@@ -28,7 +18,7 @@ const mutations = {
   },
 
   fetchSuccess (state, response) {
-    state.user = response.user
+    state.user = { ...response.user }
   },
 
   fetchError (state, errorMessage) {
@@ -37,17 +27,11 @@ const mutations = {
   },
 
   logoutSuccess (state) {
-    state.email = ''
-    state.firstName = ''
-    state.lastName = ''
-    state.sportType = null
-    state.team = null
-    // Progress
-    state.fetchingProfile = false
+    state.user = {}
   }
 }
 const actions = {
-  async fetchProfile ({ commit }) {
+  async fetchProfile ({ dispatch, commit }) {
     commit('fetchRequest')
     try {
       const data = await ProfileService.fetchProfile()
@@ -59,6 +43,7 @@ const actions = {
     } catch (e) {
       console.log(e)
       commit('fetchError', e)
+      dispatch('auth/logout', null, { root: true })
     }
   },
 

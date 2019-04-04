@@ -11,11 +11,17 @@
         class="mr-2"
         @click="$sidebar.showSidebar = !$sidebar.showSidebar"
       >
-        <i class="fas fa-chevron-right" v-if="!$sidebar.showSidebar"></i>
-        <i class="fas fa-chevron-left" v-if="$sidebar.showSidebar"></i>
+        <i
+          class="fas fa-chevron-right"
+          v-if="!$sidebar.showSidebar"
+        ></i>
+        <i
+          class="fas fa-chevron-left"
+          v-if="$sidebar.showSidebar"
+        ></i>
       </a>
 
-      <b-navbar-brand>Dashboard</b-navbar-brand>
+      <b-navbar-brand>Dashboard {{$store.state.user.user.sportType ? $store.state.user.user.sportType : ''}}</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -24,7 +30,10 @@
         is-nav
       >
         <b-navbar-nav class="ml-auto">
-          <b-nav-item-dropdown text="Settings" right>
+          <b-nav-item-dropdown
+            text="Settings"
+            right
+          >
             <b-dropdown-item>Profile</b-dropdown-item>
             <b-dropdown-item @click="logout">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>

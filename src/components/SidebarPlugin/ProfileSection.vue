@@ -8,7 +8,7 @@
         class="mb-3"
       >
       <b v-if="team.name">{{ team.name }}</b>
-      <i v-if="fullName">{{fullName}}</i>
+      <i v-if="user.firstName">{{user.firstName}} {{user.lastName}}</i>
     </div>
     <hr>
   </div>
@@ -18,18 +18,13 @@
 import { mapState } from 'vuex'
 export default {
   name: 'ProfileSection',
-  data () {
-    return {
-      fName: this.fullName
-    }
-  },
   computed: {
     ...mapState('team', {
       team: state => state.team
     }),
-    fullName () {
-      return this.$store.getters['user/fullName']
-    }
+    ...mapState('user', {
+      user: state => state.user
+    })
   }
 }
 </script>
