@@ -10,7 +10,8 @@ import Sidebar from './components/SidebarPlugin'
 
 import './assets/scss/teammanager.scss'
 
-ApiService.init('http://localhost:5000/api')
+// ApiService.init('http://localhost:5000/api')
+ApiService.init('https://sporton-api.herokuapp.com/api')
 if (TokenService.getToken()) {
   ApiService.setHeader()
 }
