@@ -1,16 +1,19 @@
 <template>
   <b-navbar
-    toggleable="lg"
+    toggleable="md"
     type="light"
     variant="white"
-    style="position: fixed; width: 100vw;"
+    style="position: fixed; width: 100vw; z-index: 99999;"
   >
     <div class="container-fluid">
 
-      <b-button
-        class="mr-5"
+      <a
+        class="mr-2"
         @click="$sidebar.showSidebar = !$sidebar.showSidebar"
-      ></b-button>
+      >
+        <i class="fas fa-chevron-right" v-if="!$sidebar.showSidebar"></i>
+        <i class="fas fa-chevron-left" v-if="$sidebar.showSidebar"></i>
+      </a>
 
       <b-navbar-brand>Dashboard</b-navbar-brand>
 
@@ -21,10 +24,10 @@
         is-nav
       >
         <b-navbar-nav class="ml-auto">
-          <b-nav-item>Link</b-nav-item>
-          <b-nav-item>Link</b-nav-item>
-          <b-nav-item>Link</b-nav-item>
-          <b-nav-item>Link</b-nav-item>
+          <b-nav-item-dropdown text="Settings" right>
+            <b-dropdown-item>Profile</b-dropdown-item>
+            <b-dropdown-item @click="logout">Sign Out</b-dropdown-item>
+          </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
 
@@ -34,7 +37,12 @@
 
 <script>
 export default {
-  name: 'Navbar'
+  name: 'Navbar',
+  methods: {
+    logout () {
+      this.$store.dispatch('auth/logout')
+    }
+  }
 }
 </script>
 

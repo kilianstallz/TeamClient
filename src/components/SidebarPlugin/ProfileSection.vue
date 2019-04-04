@@ -7,16 +7,30 @@
         style="border-radius: 100px; width:70px;"
         class="mb-3"
       >
-      <b>ATSV Zipf</b>
-      <i>Kilian Stallinger</i>
+      <b v-if="team.name">{{ team.name }}</b>
+      <i v-if="fullName">{{fullName}}</i>
     </div>
     <hr>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-  name: 'ProfileSection'
+  name: 'ProfileSection',
+  data () {
+    return {
+      fName: this.fullName
+    }
+  },
+  computed: {
+    ...mapState('team', {
+      team: state => state.team
+    }),
+    fullName () {
+      return this.$store.getters['user/fullName']
+    }
+  }
 }
 </script>
 

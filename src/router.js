@@ -38,6 +38,15 @@ const router = new Router({
       ]
     },
     {
+      path: '/welcome',
+      name: 'Welcome',
+      component: () => import(/* webpackChunkName: "FirstTimeSetup" */ './views/FirstTimeSetup.vue'),
+      meta: {
+        public: false,
+        onlyWhenLoggedOut: false
+      }
+    },
+    {
       path: '/login',
       component: Authentication,
       meta: {

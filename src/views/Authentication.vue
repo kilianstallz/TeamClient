@@ -239,6 +239,8 @@ export default {
   },
   methods: {
     ...mapActions('auth', ['login', 'signup']),
+    ...mapActions('user', ['fetchProfile']),
+    ...mapActions('team', ['fetchTeam']),
     handleSubmit () {
       // Perform a simple validation that email and password have been typed in
       // eslint-disable-next-line
@@ -260,6 +262,8 @@ export default {
         this.signup({ email: this.email, password: this.password })
         this.password = ''
         this.passwordRepeat = ''
+        this.fetchProfile()
+        this.fetchTeam()
       } else if (this.password !== this.passwordRepeat) {
         this.passwordRepeatError = true
         this.password = ''
@@ -277,7 +281,7 @@ export default {
 
 <style lang="scss" scoped>
 .wrapper {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

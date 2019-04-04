@@ -31,6 +31,10 @@ const ApiService = {
     return axios.put(resource, data)
   },
 
+  patch (resource, data) {
+    return axios.patch(resource, data)
+  },
+
   delete (resource) {
     return axios.delete(resource)
   },

@@ -1,11 +1,13 @@
 <template>
-  <div class="content">
+  <div class="content bottom">
     <fade-transition
       :duration="100"
       mode="out-in"
     >
       <!-- Pages Go Here -->
-      <router-view></router-view>
+      <div class="container">
+        <router-view></router-view>
+      </div>
     </fade-transition>
   </div>
 </template>
@@ -23,7 +25,13 @@ export default {
 .content {
   margin-top: 60px;
   margin-left: auto;
-  width: 85%;
+  height: 100%;
+  width: 100%;
   float: right;
+}
+.bottom {
+  flex-grow: 1; /*ensures that the container will take up the full height of the parent container*/
+  overflow-y: auto; /*adds scroll to this container*/
+  min-height: 100%;
 }
 </style>

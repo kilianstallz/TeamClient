@@ -9,7 +9,7 @@
         id="right"
         class="column"
       >
-        <dashboard-content class="bottom" />
+        <dashboard-content @click.native="closeSidebar" />
       </div>
     </div>
 
@@ -17,10 +17,11 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 import Navbar from './Layout/Navbar.vue'
 import DashboardContent from './Layout/DashboardContent.vue'
 export default {
-  name: 'home',
+  name: 'DashboardLayout',
   data () {
     return {
       window: {
@@ -29,6 +30,19 @@ export default {
     }
   },
   methods: {
+    ...mapActions('team', [
+      'fetchTeam'
+    ]),
+    ...mapActions('user', [
+      'fetchProfile'
+    ]),
+    closeSidebar () {
+      if (this.$sidebar.showSidebar) {
+        if (this.window.width < 768) {
+          this.$sidebar.displaySidebar(false)
+        }
+      }
+    },
     getWindowWidth (event) {
       this.window.width = window.innerWidth
       if (this.window.width < 768) {
@@ -38,7 +52,19 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapState('team', {
+      team: state => state.team
+    }),
+    ...mapState('user', {
+      user: state => state.user
+    })
+  },
   created () {
+    if (!this.team.name) {
+      this.fetchTeam()
+      this.fetchProfile()
+    }
     this.$nextTick(function () {
       window.addEventListener('resize', this.getWindowWidth)
       this.getWindowWidth()
@@ -59,7 +85,7 @@ export default {
   display: none;
 }
 .home {
-  height: 100%;
+  height: 100vh;
   display: flex;
   overflow: hidden;
   box-sizing: border-box;
@@ -77,12 +103,7 @@ export default {
       flex-direction: column; /*places the left and right headers above the bottom content*/
     }
     #right {
-      background: #d1d1d1;
       width: 100%;
-    }
-    .bottom {
-      flex-grow: 1; /*ensures that the container will take up the full height of the parent container*/
-      overflow-y: auto; /*adds scroll to this container*/
     }
   }
 }
