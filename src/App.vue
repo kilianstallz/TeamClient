@@ -16,6 +16,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  font-size: 16px;
   height: 100%;
   overflow: hidden;
   display: flex;

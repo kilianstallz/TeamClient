@@ -6,7 +6,9 @@ import store from './store'
 import './registerServiceWorker'
 import ApiService from './_services/api.service'
 import { TokenService } from './_services/storage.service'
+// Global Components
 import Sidebar from './components/SidebarPlugin'
+import { GlobalComponents } from './components/index'
 
 import './assets/scss/teammanager.scss'
 
@@ -25,6 +27,7 @@ if (TokenService.getToken()) {
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(Sidebar)
+Vue.use(GlobalComponents)
 
 new Vue({
   router,

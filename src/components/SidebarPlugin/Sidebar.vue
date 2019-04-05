@@ -1,22 +1,22 @@
 <template>
   <div
-      id="left"
-      class="column sidebar-container pt-5"
-      v-show="showSidebar"
+    id="left"
+    class="column sidebar-container pt-5"
+    v-show="showSidebar"
+  >
+    <b-nav
+      vertical
+      class="sidenav pt-3 bottom"
+      style="position: fixed; margin-top: 40px;"
     >
-      <b-nav
-        vertical
-        class="sidenav pt-3 bottom"
-        style="position: fixed; margin-top: 40px;"
-      >
-        <profile-section />
-        <div class="container mt-3">
-          <b-nav-item to="/home">Dashboard</b-nav-item>
-          <b-nav-item to="/team">Team</b-nav-item>
-          <b-nav-item>Profil</b-nav-item>
-        </div>
-      </b-nav>
-    </div>
+      <profile-section />
+      <div class="container mt-3">
+        <b-nav-item to="/home">Dashboard</b-nav-item>
+        <b-nav-item to="/team">Team</b-nav-item>
+        <b-nav-item to="/profile">Profil</b-nav-item>
+      </div>
+    </b-nav>
+  </div>
 </template>
 
 <script>

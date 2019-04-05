@@ -8,6 +8,7 @@ import Authentication from './views/Authentication.vue'
 // Pages
 import Home from './pages/Home.vue'
 import Team from './pages/Team.vue'
+import Profile from './pages/Profile.vue'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ const router = new Router({
           path: '/team',
           name: 'TeamPage',
           component: Team
+        },
+        {
+          path: '/profile',
+          name: 'Profile',
+          component: Profile
         }
       ]
     },
