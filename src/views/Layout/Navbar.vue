@@ -8,7 +8,7 @@
     <div class="container-fluid">
 
       <a
-        class="mr-2"
+        class="mr-4"
         @click="$sidebar.showSidebar = !$sidebar.showSidebar"
       >
         <i

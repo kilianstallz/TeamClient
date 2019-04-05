@@ -56,9 +56,10 @@ export default {
       if (this.$store.state.user.errorMessage) {
         this.$store.dispatch('auth/logout')
       }
-      if (this.$store.state.user.user.team) {
+      console.log(this.$store.state.user.user.team)
+      if (this.$store.state.user.user.team === null) {
         this.$router.push({
-          path: '/login', query: { method: 'login', redirect: '/home' }
+          path: '/welcome'
         })
       }
       this.loading = false

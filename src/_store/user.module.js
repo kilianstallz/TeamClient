@@ -4,6 +4,7 @@ import router from '../router'
 
 const state = {
   user: null,
+  isPremium: false,
   // Progress
   fetchingProfile: false,
   errorMessage: ''
@@ -12,6 +13,7 @@ const getters = {
   isFetching: state => state.fetchingProfile,
   user: state => state.user
 }
+
 const mutations = {
   fetchRequest (state) {
     state.fetchingProfile = true
@@ -30,8 +32,9 @@ const mutations = {
     state.user = {}
   }
 }
+
 const actions = {
-  async fetchProfile ({ dispatch, commit }) {
+  async fetchProfile ({ commit }) {
     commit('fetchRequest')
     try {
       const data = await ProfileService.fetchProfile()
@@ -43,7 +46,6 @@ const actions = {
     } catch (e) {
       console.log(e)
       commit('fetchError', e)
-      dispatch('auth/logout', null, { root: true })
     }
   },
 
