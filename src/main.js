@@ -14,7 +14,7 @@ let API_URL = ''
 if (process.env.NODE_ENV === 'production') {
   API_URL = 'https://sporton-api.herokuapp.com/api'
 } else {
-  API_URL = 'http://10.0.0.18:5000/api'
+  API_URL = 'http://localhost:5000/api'
 }
 console.log(API_URL)
 ApiService.init(API_URL)

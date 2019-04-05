@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container-fluid wrapper">
-      <h3>TeamManager</h3>
+      <h3>sporton</h3>
 
       <!-- Login Card -->
       <b-card
@@ -160,16 +160,19 @@
       </b-form-row> -->
           <!-- Name END -->
           <!-- Country -->
-          <!-- <b-form-row>
-        <b-col cols="12">
-          <b-form-group label="Country">
-            <b-form-input
-              type="text"
-              placeholder
-            ></b-form-input>
-          </b-form-group>
-        </b-col>
-      </b-form-row> -->
+          <b-form-row>
+            <b-col cols="12">
+              <b-form-group
+                style="font-weight: bold;"
+                label="Country"
+              >
+                <b-form-input
+                  type="text"
+                  v-model="country"
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+          </b-form-row>
           <!-- Country END -->
           <!-- Checkboxes -->
           <b-form-row>
@@ -221,6 +224,7 @@ export default {
       email: '',
       password: '',
       passwordRepeat: '',
+      country: '',
       terms: false,
       passwordRepeatError: false
     }
