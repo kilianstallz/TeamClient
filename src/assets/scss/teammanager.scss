@@ -1,2 +1,32 @@
-@import 'node_modules/bootstrap/scss/bootstrap';
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('../fonts/Ubuntu-B.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('../fonts/Ubuntu-M.ttf') format('truetype');
+    font-weight: medium;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('../fonts/Ubuntu-R.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@import "node_modules/bootstrap/scss/functions"; 
+@import "node_modules/bootstrap/scss/variables";
+
+@import './custom/variables';
+
+@import "node_modules/bootstrap/scss/bootstrap";
 @import 'node_modules/bootstrap-vue/src/index.scss';
+
+// variables
+
+:root {
+    --font-family-sans-serif: 'Ubuntu', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}

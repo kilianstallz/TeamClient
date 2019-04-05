@@ -12,7 +12,7 @@ export default {
 
 <style lang="scss">
 #app {
-  font-family: "Helvetica";
+  font-family: "Ubuntu";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;

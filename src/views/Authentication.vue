@@ -1,18 +1,18 @@
 <template>
   <div>
     <div class="container-fluid wrapper">
-      <h3>sporton</h3>
+      <p style="font-size: 3rem;" class="text-gray3">sport<span class="text-primary">on</span></p>
 
       <!-- Login Card -->
-      <b-card
-        class="p-3"
+      <div
+        class="p-3 shadow rounded"
         v-if="authMethod"
       >
         <b-alert
           :show="authenticationError !== ''"
           variant="danger"
         >{{ authenticationError }}</b-alert>
-        <b-form @submit.prevent="handleSubmit">
+        <b-form style="padding: 16px; padding-bottom: 0px;" @submit.prevent="handleSubmit">
           <b-form-group
             id="email"
             label="Login"
@@ -46,7 +46,7 @@
             <router-link
               :to="{ path: '/forgot', query: { method: 'register', redirect: $route.query.redirect }}"
               class="ml-3"
-              style="font-size: .8rem;"
+              style="font-size: 12.8px;"
             >Forgot password?</router-link>
           </b-form-group>
 
@@ -56,8 +56,8 @@
           >
             <b-button
               type="submit"
-              variant="success"
-            >LogIn</b-button>
+              variant="primary"
+            >Log In</b-button>
           </b-form-group>
 
           <b-form-group
@@ -65,7 +65,8 @@
             style="text-align: center;"
           >
             <b-spinner
-              variant="success"
+              class="mt-3"
+              variant="primary"
               type="grow"
             ></b-spinner>
           </b-form-group>
@@ -74,26 +75,26 @@
             <router-link
               :to="{ path: '/login', query: { method: 'register', redirect: $route.query.redirect }}"
               class="ml-3"
-              style="font-size: .8rem;"
+              style="font-size: 12.8px;"
             >Create a new account here!</router-link>
           </b-form-group>
         </b-form>
-      </b-card>
+      </div>
 
       <!-- Register Full -->
-      <b-card
+      <div
         v-if="!authMethod"
-        class="p-1 mt-5"
-        style="min-width: 70%;"
+        class="p-3 shadow rounded"
+        style="min-width: 70%; padding-bottom: 0px;"
       >
-        <h4>
+        <!-- EMAIL -->
+        <b-form class="p-3" style="padding-bottom: 0px;" @submit.prevent="handleRegister">
+          <h4>
           <i
             class="fas fa-user"
             style="font-size: 1.2rem;"
-          ></i> Account Profile
+          ></i> Create Account
         </h4>
-        <!-- EMAIL -->
-        <b-form @submit.prevent="handleRegister">
           <b-form-row>
             <b-col cols="12">
               <b-form-group label="Email Address">
@@ -145,20 +146,6 @@
             </b-col>
           </b-row>
           <!-- Password Label END -->
-          <!-- Name -->
-          <!-- <b-form-row>
-        <b-col cols="6">
-          <b-form-group label="First Name">
-            <b-form-input></b-form-input>
-          </b-form-group>
-        </b-col>
-        <b-col cols="6">
-          <b-form-group label="Last Name">
-            <b-form-input></b-form-input>
-          </b-form-group>
-        </b-col>
-      </b-form-row> -->
-          <!-- Name END -->
           <!-- Country -->
           <b-form-row>
             <b-col cols="12">
@@ -189,36 +176,31 @@
           <!-- Sumbit -->
           <b-form-row>
             <b-col cols="12">
-              <div class="d-flex justify-content-between align-items-center mt-3">
-                <span>Already have an Account? <a
+              <div class="d-flex flex-column justify-content-between align-items-center mt-3">
+                <b-button
+                  type="submit"
+                  variant="primary"
+                >Continue</b-button>
+                <span class="mt-3 mb-0 pb-0">Already have an Account? <a
                     href="#"
                     @click="toLoginPage"
                   >Login here</a></span>
-                <b-button
-                  type="submit"
-                  variant="success"
-                >Continue</b-button>
               </div>
             </b-col>
           </b-form-row>
           <!-- Submit END -->
         </b-form>
-      </b-card>
+      </div>
 
       <i>Read our privacy policity</i>
     </div>
-    <services-row />
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import ServicesRow from '../components/ServicesRow.vue'
 export default {
   name: 'login',
-  components: {
-    ServicesRow
-  },
   data () {
     return {
       email: '',

@@ -1,0 +1,24 @@
+// Color System
+$primary: #007BFF !default;
+$blue: #007BFF !default;
+$blue-link: #2D9CDB !default;
+$link: #2D9CDB !default;
+$info: #56CCF2 !default;
+$black: #1D1D1D !default;
+$black2: #2C3E50 !default;
+$gray1: #495057 !default;
+$gray2: #6C757D !default;
+$gray3: #CED4DA !default;
+$green: #28a745 !default;
+$success: #28a745 !default;
+$red: #DC3545 !default;
+$danger: #DC3545 !default;
+$orange: #FD7E14 !default;
+$warning: #FD7E14 !default;
+$yellow: #FFC107 !default;
+$green-primary: #2ECC71 !default;
+
+$theme-colors: (
+    primary: $primary,
+    gray3: $gray3
+)
