@@ -49,20 +49,12 @@ export default {
         this.$sidebar.showSidebar = true
       }
     },
+    // Fetch Profile and Team Data
     async fetchBaseData () {
       this.loading = true
-      await this.$store.dispatch('user/fetchProfile')
-      await this.$store.dispatch('team/fetchTeam')
-      if (this.$store.state.user.errorMessage) {
-        this.$store.dispatch('auth/logout')
-      }
-      console.log(this.$store.state.user.user.team)
-      if (this.$store.state.user.user.team === null) {
-        this.$router.push({
-          path: '/welcome'
-        })
-      }
+      this.$store.dispatch('user/fetchProfile')
       this.loading = false
+      this.$store.dispatch('team/fetchTeam')
     }
   },
   created () {

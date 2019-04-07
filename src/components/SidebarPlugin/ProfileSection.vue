@@ -7,24 +7,22 @@
         style="border-radius: 100px; width:70px;"
         class="mb-3"
       >
-      <b v-if="team.name">{{ team.name }}</b>
-      <i v-if="user.firstName">{{user.firstName}} {{user.lastName}}</i>
+      <b v-if="teamName">{{ teamName }}</b>
+      <i v-if="fullName">{{fullName}}</i>
     </div>
     <hr>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   name: 'ProfileSection',
   computed: {
-    ...mapState('team', {
-      team: state => state.team
-    }),
-    ...mapState('user', {
-      user: state => state.user
-    })
+    ...mapGetters('user', [
+      'fullName',
+      'teamName'
+    ])
   }
 }
 </script>

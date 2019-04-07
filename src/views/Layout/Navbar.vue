@@ -23,7 +23,7 @@
           ></i>
         </a>
 
-        <b-navbar-brand>Dashboard {{$store.state.user.user.sportType ? $store.state.user.user.sportType : ''}}</b-navbar-brand>
+        <b-navbar-brand>Dashboard</b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 

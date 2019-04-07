@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="container-fluid wrapper">
-      <p style="font-size: 3rem;" class="text-gray3">sport<span class="text-primary">on</span></p>
+      <p
+        style="font-size: 3rem;"
+        class="text-gray3"
+      >sport<span class="text-primary">on</span></p>
 
       <!-- Login Card -->
       <div
@@ -12,7 +15,10 @@
           :show="authenticationError !== ''"
           variant="danger"
         >{{ authenticationError }}</b-alert>
-        <b-form style="padding: 16px; padding-bottom: 0px;" @submit.prevent="handleSubmit">
+        <b-form
+          style="padding: 16px; padding-bottom: 0px;"
+          @submit.prevent="handleSubmit"
+        >
           <b-form-group
             id="email"
             label="Login"
@@ -88,13 +94,17 @@
         style="min-width: 70%; padding-bottom: 0px;"
       >
         <!-- EMAIL -->
-        <b-form class="p-3" style="padding-bottom: 0px;" @submit.prevent="handleRegister">
+        <b-form
+          class="p-3"
+          style="padding-bottom: 0px;"
+          @submit.prevent="handleRegister"
+        >
           <h4>
-          <i
-            class="fas fa-user"
-            style="font-size: 1.2rem;"
-          ></i> Create Account
-        </h4>
+            <i
+              class="fas fa-user"
+              style="font-size: 1.2rem;"
+            ></i> Create Account
+          </h4>
           <b-form-row>
             <b-col cols="12">
               <b-form-group label="Email Address">
@@ -206,7 +216,6 @@ export default {
       email: '',
       password: '',
       passwordRepeat: '',
-      country: '',
       terms: false,
       passwordRepeatError: false
     }
@@ -227,15 +236,23 @@ export default {
     ...mapActions('auth', ['login', 'signup']),
     ...mapActions('user', ['fetchProfile']),
     ...mapActions('team', ['fetchTeam']),
-    handleSubmit () {
+
+    async handleSubmit () {
       // Perform a simple validation that email and password have been typed in
       // eslint-disable-next-line
       if (this.email != "" && this.password != "") {
-        this.login({ email: this.email, password: this.password })
+        await this.login({ email: this.email, password: this.password })
+          .then(isOK => {
+            if (isOK) {
+              this.password = ''
+              // Redirect the user to the page he first tried to visit or to the home view
+              return this.$router.push(this.$route.query.redirect || '/')
+            }
+          })
         this.password = ''
       }
     },
-    handleRegister () {
+    async handleRegister () {
       // Perform simple validation
       this.passwordRepeatError = false
       // eslint-disable-next-line
@@ -245,11 +262,10 @@ export default {
         this.password === this.passwordRepeat &&
         this.terms === true
       ) {
-        this.signup({ email: this.email, password: this.password })
+        await this.signup({ email: this.email, password: this.password })
+          .then(console.log('GO TO WELCOME'))
         this.password = ''
         this.passwordRepeat = ''
-        this.fetchProfile()
-        this.fetchTeam()
       } else if (this.password !== this.passwordRepeat) {
         this.passwordRepeatError = true
         this.password = ''

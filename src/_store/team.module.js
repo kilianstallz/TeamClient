@@ -1,16 +1,20 @@
 import TeamService from '../_services/team.service'
 
 const state = {
-  team: {
-    name: null
-  }
+  team: null,
+  isFetching: false
 }
 const getters = {
-  team: state => state.team
+  isFetching: state => state.isFetching,
+  team: state => state.team || null
 }
 const mutations = {
-  SET_TEAM (state, team) {
+  fetchRequest (state) {
+    state.isFetching = true
+  },
+  fetchSuccess (state, team) {
     state.team = team
+    state.isFetching = false
   }
 }
 const actions = {
@@ -28,7 +32,7 @@ const actions = {
   async fetchTeam ({ commit }) {
     try {
       const data = await TeamService.getMyTeam()
-      commit('SET_TEAM', data.team)
+      commit('fetchSuccess', data.team)
       console.log(data)
     } catch (e) {
       console.log(e)

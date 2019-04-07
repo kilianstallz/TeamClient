@@ -7,15 +7,13 @@
     <div style="height: 12px; background: #007bff;"></div>
     <div class="container mt-3">
       <div class="d-flex flex-md-row align-items-center flex-column-reverse">
-        <div class="d-flex flex-column container">
-          <h4>
+        <div class="d-flex flex-column justify-items-center container">
+          <h4 class="mb-0">
             <slot name="title"></slot>
           </h4>
-          <p>
-            <slot name="subtitle"></slot>
-          </p>
+          <slot name="subtitle"></slot>
         </div>
-        <div class="h-100 mb-1 d-flex flex-row align-items-end justify-content-end">
+        <div class="h-100 mt-0 pt-0 d-flex flex-row">
           <slot name="action-button"></slot>
           <button
             @click="show = !show"

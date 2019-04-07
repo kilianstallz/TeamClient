@@ -1,17 +1,16 @@
 // import router from '../router'
 import ProfileService from '../_services/profile.service'
-import router from '../router'
 
 const state = {
-  user: null,
-  isPremium: false,
-  // Progress
+  profile: null,
+
   fetchingProfile: false,
   errorMessage: ''
 }
 const getters = {
   isFetching: state => state.fetchingProfile,
-  user: state => state.user
+  fullName: state => state.profile !== null ? `${state.profile.firstName} ${state.profile.lastName}` : '',
+  teamName: state => state.profile !== null ? `${state.profile.team.name}` : ''
 }
 
 const mutations = {
@@ -19,8 +18,11 @@ const mutations = {
     state.fetchingProfile = true
   },
 
-  fetchSuccess (state, response) {
-    state.user = { ...response.user }
+  fetchSuccess (state, profile) {
+    let teamName = profile.team.details.name || ''
+    delete profile.team
+    state.profile = { ...profile, team: { name: teamName } }
+    state.fetchingProfile = false
   },
 
   fetchError (state, errorMessage) {
@@ -38,11 +40,7 @@ const actions = {
     commit('fetchRequest')
     try {
       const data = await ProfileService.fetchProfile()
-      commit('fetchSuccess', data)
-      const { user } = data
-      if (!user.team || !user.firstName || !user.lastName) {
-        router.push('/welcome')
-      }
+      commit('fetchSuccess', data.user)
     } catch (e) {
       console.log(e)
       commit('fetchError', e)
@@ -51,6 +49,7 @@ const actions = {
 
   async updateUser ({ commit }, obj) {
     try {
+      commit('fetchRequest')
       const data = await ProfileService.patchProfile(obj)
       commit('fetchSuccess', data)
     } catch (e) {
