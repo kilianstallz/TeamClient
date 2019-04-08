@@ -1,6 +1,6 @@
 {
-  "name": "teamclient",
-  "short_name": "teamclient",
+  "name": "sporton teammanagement",
+  "short_name": "sporton",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
