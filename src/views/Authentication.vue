@@ -91,7 +91,7 @@
       <div
         v-if="!authMethod"
         class="p-3 shadow rounded"
-        style="min-width: 70%; padding-bottom: 0px;"
+        style="min-width: 338px; max-width: 310px; padding-bottom: 0px;"
       >
         <!-- EMAIL -->
         <b-form
@@ -99,17 +99,16 @@
           style="padding-bottom: 0px;"
           @submit.prevent="handleRegister"
         >
-          <h4>
-            <i
-              class="fas fa-user"
-              style="font-size: 1.2rem;"
-            ></i> Create Account
-          </h4>
           <b-form-row>
             <b-col cols="12">
-              <b-form-group label="Email Address">
+              <b-form-group
+                class="label"
+                label="Email address"
+              >
                 <b-form-input
-                  type="text"
+                  class="form-input"
+                  placeholder="Username"
+                  type="email"
                   v-model="email"
                   required
                 ></b-form-input>
@@ -120,9 +119,14 @@
           <!-- Password -->
           <b-form-row>
             <b-col cols="12">
-              <b-form-group label="Password">
+              <b-form-group
+                class="label"
+                label="Password"
+              >
                 <b-form-input
+                  class="form-input"
                   v-model="password"
+                  placeholder="Password"
                   type="password"
                   required
                 ></b-form-input>
@@ -133,9 +137,13 @@
           <!-- Password -->
           <b-form-row>
             <b-col cols="12">
-              <b-form-group label="Repeat password">
+              <b-form-group
+                class="label"
+                label="Repeat password"
+              >
                 <b-form-input
                   type="password"
+                  placeholder="Password Repeat"
                   v-model="passwordRepeat"
                   required
                 ></b-form-input>
@@ -144,10 +152,7 @@
           </b-form-row>
           <!-- Password END -->
           <!-- Password Label-->
-          <b-row
-            style="font-size: .8rem; color: gray; text-align: center;"
-            class="mb-3"
-          >
+          <b-row style="font-size: .8rem; color: gray; text-align: center;">
             <b-col cols="6">
               <span>8 characters minimum</span>
             </b-col>
@@ -156,26 +161,12 @@
             </b-col>
           </b-row>
           <!-- Password Label END -->
-          <!-- Country -->
-          <b-form-row>
-            <b-col cols="12">
-              <b-form-group
-                style="font-weight: bold;"
-                label="Country"
-              >
-                <b-form-input
-                  type="text"
-                  v-model="country"
-                ></b-form-input>
-              </b-form-group>
-            </b-col>
-          </b-form-row>
-          <!-- Country END -->
           <!-- Checkboxes -->
           <b-form-row>
             <b-col cols="12">
               <b-form-group>
                 <b-form-checkbox
+                  class="mt-3"
                   v-model="terms"
                   required
                 >I agree to the terms of service</b-form-checkbox>
@@ -186,19 +177,21 @@
           <!-- Sumbit -->
           <b-form-row>
             <b-col cols="12">
-              <div class="d-flex flex-column justify-content-between align-items-center mt-3">
+              <div class="mt-3 mb-4">
                 <b-button
+                  class="base-button"
                   type="submit"
                   variant="primary"
                 >Continue</b-button>
-                <span class="mt-3 mb-0 pb-0">Already have an Account? <a
-                    href="#"
-                    @click="toLoginPage"
-                  >Login here</a></span>
               </div>
             </b-col>
+            <a
+              href="#"
+              @click="toLoginPage"
+              class="mx-auto mt-2 blue-link"
+            >Already have an Account? Login here!</a>
+            <!-- Submit END -->
           </b-form-row>
-          <!-- Submit END -->
         </b-form>
       </div>
 
@@ -288,5 +281,10 @@ export default {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+}
+.blue-link {
+  color: #007bff;
+  margin-bottom: 1rem;
+  font-size: 12.8px;
 }
 </style>
